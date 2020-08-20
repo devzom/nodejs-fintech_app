@@ -13,7 +13,7 @@ export const databaseProvider = [
                 password: process.env.DB_PASS,
                 database: process.env.DB_NAME,
             });
-            sequelize.addModels([]);
+            sequelize.addModels([Users, Accounts]);
             return sequelize;
         }
     }
