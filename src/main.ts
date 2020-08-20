@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 
+//in purpose to read root .env file
+require('dotenv').config()
+
 //declaration for adding any module by const
 declare const module: any;
 

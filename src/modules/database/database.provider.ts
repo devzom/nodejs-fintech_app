@@ -7,11 +7,11 @@ export const databaseProvider = [
         useFactory: async () => {
             const sequelize = new Sequelize({
                 dialect: "postgres",
-                host: 'localhost',
+                host: process.env.DB_HOST,
                 port: 8700,
-                username: 'root',
-                password: 'root',
-                database: 'bankappnode'
+                username: process.env.DB_USER,
+                password: process.env.DB_PASS,
+                database: process.env.DB_NAME,
             });
             sequelize.addModels([]);
             return sequelize;
