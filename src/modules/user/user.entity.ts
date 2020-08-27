@@ -1,6 +1,5 @@
-import { Table, Column, DataType, CreatedAt, UpdatedAt, HasMany } from 'sequelize-typescript';
+import { Table, Column, DataType, CreatedAt, UpdatedAt, HasMany, Model } from 'sequelize-typescript';
 import { TableOptions } from 'sequelize-typescript';
-import { Model } from 'sequelize/types';
 import { Accounts } from '../accounts/accounts.entity';
 
 const tableOptions: TableOptions = { timestamp: true, tableName: 'Users' } as TableOptions;
