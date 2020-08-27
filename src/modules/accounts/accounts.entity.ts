@@ -34,14 +34,16 @@ export class Accounts extends Model<Accounts> {
     public Balance: number;
 
 
-    // @ForeignKey(() => Users)
-    // public UserId: number;
+    @ForeignKey(() => Users)
+    public UserId: number;
 
-    // @BelongsTo(() => Users, {
-    //     as: 'Users',
-    //     foreignKey: 'UserId',
-    //     targetKey: 'id',
-    // })
+    @BelongsTo(() => Users, {
+        as: 'Users',
+        foreignKey: 'UserId',
+        targetKey: 'id',
+    })
+
+
     public Users: Users;
 
     @CreatedAt
