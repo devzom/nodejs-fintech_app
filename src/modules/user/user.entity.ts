@@ -1,6 +1,7 @@
 import { Table, Column, DataType, CreatedAt, UpdatedAt, HasMany } from 'sequelize-typescript';
 import { TableOptions } from 'sequelize-typescript';
 import { Model } from 'sequelize/types';
+import { Accounts } from '../accounts/accounts.entity';
 
 const tableOptions: TableOptions = { timestamp: true, tableName: 'Users' } as TableOptions;
 
@@ -44,7 +45,6 @@ export class Users extends Model<Users>{
     })
     public Password: string;
 
-
     @Column({
         type: DataType.CHAR(200),
         allowNull: false
@@ -57,4 +57,6 @@ export class Users extends Model<Users>{
     @UpdatedAt
     public UpdatedAt: Date;
 
+    @HasMany(() => Accounts, 'UserId')
+    public Accounts: Accounts[];
 }

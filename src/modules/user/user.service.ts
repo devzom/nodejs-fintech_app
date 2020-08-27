@@ -3,12 +3,14 @@ import { Users } from './user.entity';
 import * as jwt from 'jsonwebtoken';
 import { jwtConfig } from './../../../config/jwtConfig';
 import crypto = require('crypto');
+import { AccountsService } from '../accounts/accounts.service';
 
 
 @Injectable()
 export class UsersService {
     constructor(
         @Inject('USERS_REPOSITORY') private usersRepository: typeof Users,
+        private accountsService: AccountsService,
     ) { }
 
     public async create(user: any): Promise<object> {
@@ -26,6 +28,11 @@ export class UsersService {
             const jwtToken = jwt.sign(user, process.env.JWT_KEY, jwtConfig);
 
             newUser.Token = jwtToken;
+
+            if (newUser) {
+                this.accountsService.create(newUser.id)
+            }
+
             return newUser;
         }
     }
