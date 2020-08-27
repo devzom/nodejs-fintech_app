@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const sequelize = new Sequelize({
     dialect: "postgres",
-    host: 'localhost',
+    host: process.env.DB_HOST,
     port: 8700,
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
@@ -38,14 +38,14 @@ switch (task) {
                 process.exit(0);
             })
         break;
-        case 'down':
-            umzug.down()
+    case 'down':
+        umzug.down()
             .then((result) => {
                 console.log('Migations failed...!', result);
                 process.exit(0);
             })
         break;
 
-        default:
-            break;
+    default:
+        break;
 }
