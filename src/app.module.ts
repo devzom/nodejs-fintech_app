@@ -6,6 +6,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 import { DatabaseModule } from './modules/database/database.module';
+import { UserModule } from './modules/user/user.module';
+import { AccountsModule } from './modules/accounts/accounts.module';
 
 
 @Module({
@@ -17,6 +19,10 @@ import { DatabaseModule } from './modules/database/database.module';
     }),
 
     DatabaseModule,
+
+    UserModule,
+
+    AccountsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
