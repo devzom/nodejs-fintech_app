@@ -13,7 +13,7 @@ async function bootstrap() {
     logger: ['error', 'debug']
   });
   await app.listen(3000);
-
+  console.log(`Application is running on: ${await app.getUrl()}`);
   //for adding Hot-Reload feature
   if (module.hot) {
     module.hot.accept();
