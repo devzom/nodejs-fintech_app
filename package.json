@@ -1,9 +1,9 @@
 {
   "name": "nodejs-fintech-app",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "version": "1.0.0",
+  "description": "NestJS node BankingApp",
+  "author": "Jakub Zomerfeld - devzom",
+  "private": false,
   "license": "UNLICENSED",
   "scripts": {
     "migrate": "ts-node ./migrate.ts",
@@ -61,7 +61,7 @@
     "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.4",
-    "webpack-node-externals": "^2.5.1"
+    "webpack-node-externals": "^2.5.2"
   },
   "jest": {
     "moduleFileExtensions": [
