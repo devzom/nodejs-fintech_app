@@ -51,10 +51,10 @@ export class Users extends Model<Users>{
     public Salt: string;
 
     @CreatedAt
-    public CreatedAt: Date;
+    public createdAt: Date;
 
     @UpdatedAt
-    public UpdatedAt: Date;
+    public updatedAt: Date;
 
     @HasMany(() => Accounts, 'UserId')
     public Accounts: Accounts[];
