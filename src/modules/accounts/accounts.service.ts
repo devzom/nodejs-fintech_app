@@ -24,4 +24,9 @@ export class AccountsService {
             }
         }
     }
+
+
+    public async getAccountsByUserId(userId: number): Promise<object> {
+        return;
+    }
 }
