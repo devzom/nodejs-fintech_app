@@ -1,3 +1,4 @@
+import { Accounts } from './../accounts/accounts.entity';
 import { Injectable, Inject } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { jwtConfig } from './../../../config/jwtConfig';
@@ -103,6 +104,52 @@ export class UsersService {
             token: jwtToken,
             success: true,
         }
+        return response;
+    }
+
+    // Create authentication function
+    public async authenticate(id: number, token: string): Promise<any> {
+
+        //Get user by ID with accounts
+        const user = await Users.findOne<Users>({
+            where: {
+                id,
+            },
+            include: [
+                {
+                    model: Accounts,
+                    where: {
+                        UserId: id,
+                    },
+                    required: true,
+                }
+            ]
+        });
+
+        //Decode token and compare given ID's
+        const decodedToken = jwt.verify(token, process.env.JWT_KEY, jwtConfig);
+        const isTokenValid = decodedToken.id === Number(id);
+
+        //Handle incorrect tokens
+        if (!isTokenValid) {
+            return {
+                success: false,
+                message: 'User is not authorized to log in.'
+            }
+        }
+
+        // Create response object
+        const response = {
+            user: {
+                id: user.id,
+                email: user.Email.trim(),
+                username: user.Username.trim(),
+                accounts: user.Accounts,
+            },
+            token,
+            success: true,
+        }
+
         return response;
     }
 }
