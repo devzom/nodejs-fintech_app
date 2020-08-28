@@ -112,15 +112,11 @@ export class UsersService {
 
         //Get user by ID with accounts
         const user = await Users.findOne<Users>({
-            where: {
-                id,
-            },
+            where: { id },
             include: [
                 {
                     model: Accounts,
-                    where: {
-                        UserId: id,
-                    },
+                    where: { UserId: id },
                     required: true,
                 }
             ]
