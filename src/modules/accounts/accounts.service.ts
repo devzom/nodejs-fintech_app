@@ -25,6 +25,13 @@ export class AccountsService {
         }
     }
 
+    public async update(UserId: number): Promise<object> {
+        return;
+    }
+
+    public async delete(UserId: number): Promise<object> {
+        return;
+    }
 
     public async getAccountsByUserId(UserId: number): Promise<object> {
         const accounts = await Accounts.findAll<Accounts>({
