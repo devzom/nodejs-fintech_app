@@ -2,8 +2,8 @@ import { Table, Column, Model, DataType, CreatedAt, UpdatedAt, ForeignKey, Belon
 import { TableOptions } from 'sequelize-typescript';
 import { Users } from '../user/user.entity';
 
-
 const tableOptions: TableOptions = { timestamp: true, tableName: 'Accounts' } as TableOptions;
+
 @Table(tableOptions)
 export class Accounts extends Model<Accounts> {
     @Column({
@@ -33,7 +33,6 @@ export class Accounts extends Model<Accounts> {
     })
     public Balance: number;
 
-
     @ForeignKey(() => Users)
     public UserId: number;
 
@@ -42,8 +41,6 @@ export class Accounts extends Model<Accounts> {
         foreignKey: 'UserId',
         targetKey: 'id',
     })
-
-
     public Users: Users;
 
     @CreatedAt

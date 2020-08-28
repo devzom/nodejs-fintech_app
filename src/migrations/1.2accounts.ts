@@ -1,9 +1,7 @@
 import * as Sequelize from 'sequelize';
-
 const tableName = 'Accounts';
-
-export async function up(param: any) {
-  const queryInterface = param.getQueryInterface() as Sequelize.QueryInterface;
+export async function up(i: any) {
+  const queryInterface = i.getQueryInterface() as Sequelize.QueryInterface;
   queryInterface.createTable(tableName, {
     id: {
       type: Sequelize.INTEGER,
@@ -39,7 +37,7 @@ export async function up(param: any) {
     }
   });
 };
-export async function down(param: any) {
-  const queryInterface = param.getQueryInterface() as Sequelize.QueryInterface;
+export async function down(i: any) {
+  const queryInterface = i.getQueryInterface() as Sequelize.QueryInterface;
   queryInterface.dropTable(tableName);
 }
