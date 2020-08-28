@@ -1,7 +1,6 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Res, Param, Headers } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus, Res, Param, Headers, Get } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { IUser } from './interfaces/user.interface';
-
 
 @Controller('users')
 
@@ -32,7 +31,9 @@ export class UsersController {
     }
 
     //Create auth endpoint
-
+    //API endpoint:
+    // http://localhost:3000/users/[id]
+    // Header: {Key: Authorization, Value: token}
     @Post(':id')
     public async authenticate(@Param() params, @Res() res, @Headers() headers): Promise<any> {
 
@@ -43,5 +44,24 @@ export class UsersController {
             throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
         }
         return res.status(HttpStatus.OK).json(result);
+    }
+
+
+    //use: http://localhost:3000/users/[id]/balance
+    @Get(':id/balance')
+    public async getUserAccountsBalance(@Param() params, @Res() res): Promise<any> {
+
+        if (!params.id) {
+            const result: any = await this.usersService.userBalances(params.id);
+
+            if (!result.success) {
+                throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
+            }
+
+            return res.status(HttpStatus.OK).json(result);
+        } else {
+            throw new HttpException('UserID is invalid , user doesn\'t exist to get accounts balances.', HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

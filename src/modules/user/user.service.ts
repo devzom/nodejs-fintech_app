@@ -148,4 +148,26 @@ export class UsersService {
 
         return response;
     }
+
+
+
+    // Get user accounts balances
+    public async userBalances(id: number): Promise<any> {
+        // Get user's accounts
+        const user = await Users.findOne<Users>({
+            where: { id: id },
+            attributes: { exclude: ['UserId', 'Email', 'createdAt', 'updatedAt'] }
+        });
+
+        const accounts = await this.accountsService.getAccountsBalanceByUserId(user.id);
+
+        const response = {
+            user: {
+                username: user.Username.trim(),
+                accounts,
+            },
+            success: true,
+        }
+        return response;
+    }
 }
