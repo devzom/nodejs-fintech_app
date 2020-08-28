@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { from } from 'rxjs';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 import { DatabaseModule } from './modules/database/database.module';
 import { UserModule } from './modules/user/user.module';
 import { AccountsModule } from './modules/accounts/accounts.module';
+import { OperationsController } from './modules/operations/operations.controller';
 
 
 @Module({
@@ -24,7 +24,7 @@ import { AccountsModule } from './modules/accounts/accounts.module';
 
     AccountsModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, OperationsController],
   providers: [AppService],
 })
 export class AppModule { }
