@@ -26,7 +26,12 @@ export class AccountsService {
     }
 
 
-    public async getAccountsByUserId(userId: number): Promise<object> {
-        return;
+    public async getAccountsByUserId(UserId: number): Promise<object> {
+        const accounts = await Accounts.findAll<Accounts>({
+            where: { UserId },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+        })
+
+        return accounts ? accounts : [];
     }
 }
