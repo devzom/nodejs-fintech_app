@@ -97,8 +97,8 @@ export class UsersService {
         const response = {
             user: {
                 id: user.id,
-                username: user.Username,
-                email: user.Email,
+                username: user.Username.trim(),
+                email: user.Email.trim(),
                 accounts,
             },
             token: jwtToken,
