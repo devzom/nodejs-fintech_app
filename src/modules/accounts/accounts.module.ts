@@ -5,9 +5,9 @@ import { DatabaseModule } from './../database/database.module';
 import { Module } from '@nestjs/common';
 
 @Module({
-    imports: [DatabaseModule],
-    controllers: [AccountsController],
-    providers: [AccountsProviders, AccountsService],
-    exports: [AccountsProviders, AccountsService]
+  imports: [DatabaseModule],
+  controllers: [AccountsController],
+  providers: [AccountsProviders, AccountsService],
+  exports: [AccountsProviders, AccountsService],
 })
-export class AccountsModule { }
+export class AccountsModule {}

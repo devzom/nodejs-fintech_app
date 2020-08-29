@@ -34,9 +34,9 @@ export async function up(i: any) {
     },
     updatedAt: {
       type: Sequelize.DATE,
-    }
+    },
   });
-};
+}
 export async function down(i: any) {
   const queryInterface = i.getQueryInterface() as Sequelize.QueryInterface;
   queryInterface.dropTable(tableName);
