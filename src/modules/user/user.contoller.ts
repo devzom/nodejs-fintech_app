@@ -14,7 +14,7 @@ import { IUser } from './interfaces/user.interface';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService) { }
 
   //Create register function for API
   @Post('register')
@@ -63,7 +63,7 @@ export class UsersController {
     @Param() params,
     @Res() res,
   ): Promise<any> {
-    if (!params.id) {
+    if (params.id) {
       const result: any = await this.usersService.userBalances(params.id);
 
       if (!result.success) {
