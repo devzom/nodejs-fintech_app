@@ -6,33 +6,36 @@ import {
   HttpException,
   HttpStatus,
   Put,
+  Delete, Param, Get
 } from '@nestjs/common';
 
 @Controller('accounts')
 export class AccountsController {
-  constructor(private accountsService: AccountsService) {}
+  constructor(private accountsService: AccountsService) { }
 
-  @Post('create-account')
+  @Post('create')
   public async register(@Body() UserId: number): Promise<any> {
     const result: any = await this.accountsService.create(UserId);
     if (!result.success) {
       throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
     }
-
     return result;
   }
 
-  @Post('delete-account')
-  public async delete(@Body() UserId: number): Promise<any> {
-    const result: any = await this.accountsService.delete(UserId);
-
-    return 'account delete - test';
+  @Delete('delete/:id')
+  public async delete(@Param('id') id: number): Promise<any> {
+    const result: any = await this.accountsService.delete(id);
+    return result;
   }
 
-  @Put('update-account')
-  public async update(@Body() UserId: number): Promise<any> {
-    const result: any = await this.accountsService.update(UserId);
+  @Put('update')
+  public async update(@Body() body: number): Promise<any> {
+    //? body: [AccountId, Balance]
+    const result: any = await this.accountsService.update(body);
 
-    return 'account update - test';
+    if (!result.success) {
+      throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
+    }
+    return result;
   }
 }
