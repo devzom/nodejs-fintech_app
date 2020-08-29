@@ -15,12 +15,19 @@ export class TransactionService {
         // }
     ];
 
-    get() {
+    getAll() {
         return this.transactions;
     }
 
+    find(transID: number) {
+    }
+
     create(itransaction: ITransaction) {
+        const id = Date.now();
         this.transactions.push(itransaction);
         return itransaction;
     }
+
+
+   
 }

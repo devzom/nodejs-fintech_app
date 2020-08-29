@@ -3,6 +3,11 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join, resolve } from 'path';
 import * as hbs from 'hbs';
+import { ValidationPipe } from '@nestjs/common';
+
+
+
+
 
 //in purpose to read root .env file
 require('dotenv').config();
@@ -13,6 +18,9 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // logger: ['error', 'debug'],
   });
+
+  //Validation
+  app.useGlobalPipes(new ValidationPipe());
 
   //view
   app.useStaticAssets(resolve('./src/public'));

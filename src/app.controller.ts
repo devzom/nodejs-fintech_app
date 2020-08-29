@@ -42,15 +42,17 @@ export class AppController {
     return { title: 'Account login page' };
   }
 
+
+  ///http://localhost:3000/transaction
   @Get('transaction')
   async index(): Promise<ITransaction[]> {
-    return this.transactionService.get();
+    return this.transactionService.getAll();
   }
 
   @Post('transaction')
   create(@Body() createTransaction: CreateTransaction) {
     this.transactionService.create(createTransaction);
-    console.log(this.transactionService.get());
+    console.log(this.transactionService.getAll());
     return createTransaction;
   }
 }
