@@ -11,7 +11,7 @@ export class UsersService {
   constructor(
     @Inject('USERS_REPOSITORY') private usersRepository: typeof Users,
     private accountsService: AccountsService,
-  ) {}
+  ) { }
 
   public async create(user: any): Promise<object> {
     const exists = await Users.findOne({ where: { Email: user.Email } });
@@ -167,17 +167,23 @@ export class UsersService {
       attributes: { exclude: ['UserId', 'Email', 'createdAt', 'updatedAt'] },
     });
 
-    const accounts = await this.accountsService.getAccountsBalanceByUserId(
-      user.id,
-    );
+    let response;
 
-    const response = {
-      user: {
-        username: user.Username.trim(),
-        accounts,
-      },
-      success: true,
-    };
+    if (user) {
+      const accounts = await this.accountsService.getAccountsBalanceByUserId(user.id);
+      response = {
+        user: {
+          username: user.Username.trim(),
+          accounts,
+        },
+        success: true,
+      };
+    } else {
+      response = {
+        message: "UserID is invalid , user doesn't exist.",
+        success: false,
+      };
+    }
     return response;
   }
 }

@@ -62,20 +62,12 @@ export class UsersController {
   public async getUserAccountsBalance(
     @Param() params,
     @Res() res,
-  ): Promise<any> {
-    if (params.id) {
-      const result: any = await this.usersService.userBalances(params.id);
+  ): Promise<number> {
+    const result: any = await this.usersService.userBalances(params.id);
 
-      if (!result.success) {
-        throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
-      }
-
-      return res.status(HttpStatus.OK).json(result);
-    } else {
-      throw new HttpException(
-        "UserID is invalid , user doesn't exist to get accounts balances.",
-        HttpStatus.BAD_REQUEST,
-      );
+    if (!result.success) {
+      throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
     }
+    return res.status(HttpStatus.OK).json(result);
   }
 }
