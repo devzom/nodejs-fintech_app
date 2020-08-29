@@ -5,6 +5,7 @@ import { TransactionService } from './modules/transaction/transaction.service';
 //! import transactions/operation on account files
 import { ITransaction } from './modules/transaction/interface/transaction.interface'
 import { CreateTransaction } from './modules/transaction/interface/create-transation';
+import { exception } from 'console';
 
 
 @Controller()
@@ -46,13 +47,20 @@ export class AppController {
   ///http://localhost:3000/transaction
   @Get('transaction')
   async index(): Promise<ITransaction[]> {
-    return this.transactionService.getAll();
+    return this.transactionService.get();
+  }
+
+  @Get('transaction/:id')
+  async find(@Param('id') id: number): Promise<ITransaction> {
+    let result = this.transactionService.find(id);
+    return result;
   }
 
   @Post('transaction')
   create(@Body() createTransaction: CreateTransaction) {
     this.transactionService.create(createTransaction);
-    console.log(this.transactionService.getAll());
+    // console.log(this.transactionService.get());
+
     return createTransaction;
   }
 }

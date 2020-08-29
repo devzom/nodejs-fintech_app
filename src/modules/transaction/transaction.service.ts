@@ -3,7 +3,6 @@ import { ITransaction } from './interface/transaction.interface'
 
 @Injectable()
 export class TransactionService {
-
     date = Date.now();
 
     private readonly transactions: ITransaction[] = [
@@ -15,19 +14,22 @@ export class TransactionService {
         // }
     ];
 
-    getAll() {
+    get() {
         return this.transactions;
     }
 
-    find(transID: number) {
+    find(id: number): ITransaction {
+        const transaction: ITransaction = this.transactions[id];
+        if (!transaction) throw new Error("Transaction not found.");
+
+        return transaction;
     }
 
     create(itransaction: ITransaction) {
         const id = Date.now();
-        this.transactions.push(itransaction);
+        const data = this.transactions[id] = { ...itransaction, id };
+
+        this.transactions.push(data);
         return itransaction;
     }
-
-
-   
 }
