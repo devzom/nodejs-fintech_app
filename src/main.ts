@@ -26,7 +26,7 @@ async function bootstrap() {
   });
   //view
 
-  await app.listen(3000);
+  await app.listen(process.env.APP_PORT);
   console.log(`Application is running on: ${await app.getUrl()}`);
 
   //for adding Hot-Reload feature
