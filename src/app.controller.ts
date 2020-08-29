@@ -50,7 +50,7 @@ export class AppController {
   @Post('transaction')
   create(@Body() createTransaction: CreateTransaction) {
     this.transactionService.create(createTransaction);
-    console.log(createTransaction);
+    console.log(this.transactionService.get());
     return createTransaction;
   }
 }

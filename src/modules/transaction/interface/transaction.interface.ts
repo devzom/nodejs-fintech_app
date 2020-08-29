@@ -1,6 +1,6 @@
 export interface ITransaction {
-    id: number
-    name: string
-    balance: number
-    accountNumber: number
+    readonly id: number
+    readonly name: string
+    readonly balance: number
+    readonly accountNumber: number
 }
