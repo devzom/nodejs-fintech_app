@@ -5,8 +5,8 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './modules/database/database.module';
 import { UserModule } from './modules/user/user.module';
 import { AccountsModule } from './modules/accounts/accounts.module';
-import { OperationsController } from './modules/operations/operations.controller';
-import { OperationsService } from './modules/operations/operations.service';
+import { TransactionController } from './modules/transaction/transaction.controller';
+import { TransactionService } from './modules/transaction/transaction.service';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { OperationsService } from './modules/operations/operations.service';
     UserModule,
     AccountsModule,
   ],
-  controllers: [AppController, OperationsController],
-  providers: [AppService, OperationsService],
+  controllers: [AppController, TransactionController],
+  providers: [AppService, TransactionService],
 })
 export class AppModule { }

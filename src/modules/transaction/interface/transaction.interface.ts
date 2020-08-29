@@ -1,4 +1,4 @@
-export interface IOperation {
+export interface ITransaction {
     id: number
     name: string
     balance: number

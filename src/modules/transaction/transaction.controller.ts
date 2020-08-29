@@ -1,17 +1,15 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
   HttpException,
   HttpStatus,
   Res,
   Param,
-  Headers,
 } from '@nestjs/common';
 
-@Controller('operations')
-export class OperationsController {
+@Controller('transaction')
+export class TransactionController {
   @Post('deposit/:amount')
   public async deposit(
     @Param() params,

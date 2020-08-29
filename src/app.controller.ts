@@ -1,15 +1,15 @@
 import { Body, Controller, Get, Param, Post, Render, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import { OperationsService } from './modules/operations/operations.service';
+import { TransactionService } from './modules/transaction/transaction.service';
 
 //! import transactions/operation on account files
-import { IOperation } from './modules/operations/interface/operations.interface'
-import { CreateOperation } from './modules/operations/interface/create-operation';
+import { ITransaction } from './modules/transaction/interface/transaction.interface'
+import { CreateTransaction } from './modules/transaction/interface/create-transation';
 
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly operationsService: OperationsService) { }
+  constructor(private readonly appService: AppService, private readonly transactionService: TransactionService) { }
 
   //TODO implement later
   //dynamic template rendering
@@ -43,14 +43,14 @@ export class AppController {
   }
 
   @Get('transaction')
-  async index(): Promise<IOperation[]> {
-    return this.operationsService.get();
+  async index(): Promise<ITransaction[]> {
+    return this.transactionService.get();
   }
 
   @Post('transaction')
-  create(@Body() createOperation: CreateOperation, @Param() param: any) {
-    this.operationsService.create(createOperation);
-    console.log(createOperation);
-    return createOperation;
+  create(@Body() createTransaction: CreateTransaction) {
+    this.transactionService.create(createTransaction);
+    console.log(createTransaction);
+    return createTransaction;
   }
 }
