@@ -66,6 +66,16 @@ export class UsersService {
 
   // Create login function
   public async login(credentials: any): Promise<any> {
+    if (!credentials.Username) {
+      console.log(`Username is not valid. Check credentials: ${credentials.Username}`);
+
+      return {
+        success: false,
+        message: `Username is not valid. Check credentials: Username: ${credentials.Username}`,
+      };
+
+    }
+
     const user = await Users.findOne<Users>({
       where: { Username: credentials.Username },
       attributes: { exclude: ['createdAt', 'updatedAt'] },
@@ -73,10 +83,13 @@ export class UsersService {
 
     // Handle user not found error
     if (!user) {
+      console.log(`User doesn\t exist. Check credentials./ Credentials: ${credentials.Username} `);
+
       return {
         success: false,
         message: 'User doesn\t exist. Check credentials.',
       };
+
     }
 
     // Handle password check from DB and password input
@@ -88,6 +101,8 @@ export class UsersService {
     const isPasswordCorrect = user.Password.trim() === inputPassword.trim();
 
     if (!isPasswordCorrect) {
+      console.log(`Password is incorrect.`);
+
       return {
         success: false,
         message: 'Password is incorrect.',
@@ -115,6 +130,7 @@ export class UsersService {
       token: jwtToken,
       success: true,
     };
+
     return response;
   }
 

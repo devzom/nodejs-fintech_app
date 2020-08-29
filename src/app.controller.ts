@@ -26,8 +26,8 @@ export class AppController {
   @Render('pages/home')
   home() {
     return {
-      title: 'BankingApp Homepage',
-      body: 'test'
+      title: 'BankingApp',
+      body: 'NestJS based banking API'
     };
   }
 
