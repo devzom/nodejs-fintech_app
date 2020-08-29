@@ -3,22 +3,40 @@
         <h4 class="text-info">{{title}}</>
     </div>
     <div class="text-center">
-        <form action="action_page.php"></form>>
+        <form name="login_form" id="login_form">
             <div class="form-group">
                 <label for="emailInput">Email address</label>
-                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
+                    autocomplete="email" autofocus>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                     else.</small>
             </div>
             <div class="form-group">
                 <label for="passwordInput">Password</label>
-                <input type="password" class="form-control" id="passwordInput">
+                <input type="password" class="form-control" id="passwordInput" autocomplete="current-password">
             </div>
             <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" id="rememberMe">
                 <label class="form-check-label" for="rememberMe">Remember me</label>
             </div>
-            <button type="submit" class="btn btn-outline-dark my-2 my-sm-0">Submit</button>
+            <button value="Submit" type="submit" class="btn btn-outline-dark my-2 my-sm-0">Sign </button>
         </form>
     </div>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    $('#login_form').on('submit', function (event) {
+
+
+        var obj = $('#login_form').serializeJSON();
+
+        event.preventDefault();
+        var formData = JSON.stringify($('#login_form').serializeArray());
+        console.log(formData);
+        console.log(obj);
+
+    });
+</script>
