@@ -1,0 +1,80 @@
+<div class="col-12 my-auto">
+    <div class="text-center">
+        <h1 class="text-info">Transactions</h3>
+
+            {{!-- <a class="btn btn-outline-info my-3" id="refresh" href="#">Refresh</a> --}}
+            <table id="table_transactions" class="table table-hover my-5" style="display: none;">
+                <thead class="thead-dark">
+                    <tr class="bg-info text-white">
+                        <td>ID</td>
+                        <td>Title</td>
+                        <td>Amount</td>
+                        <td>Receiver account</td>
+                        <td>Date</td>
+                    </tr>
+                </thead>
+                <tbody class="table-body" id="transactions">
+                </tbody>
+            </table>
+
+            <div id="loading_table" class="my-5">
+                <p>Loading...</p>
+            </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            url: 'http://[::1]:3000/transaction',
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: () => {
+                $('#loading_table').fadeIn();
+            },
+            success: function (data, html, textStatus, xhr) {
+
+                setTimeout(() => { data.forEach(showTransactions) }, 250);
+                setTimeout(() => { $('#loading_table').fadeOut(); $('#table_transactions').fadeIn(); }, 2000);
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
+
+        /*
+                setInterval(() => loadTranscations(), 10000);
+                */
+
+        $("#refresh").click(function () {
+            $.ajax({
+                url: 'http://[::1]:3000/transaction',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data, html, textStatus, xhr) {
+
+                    console.log(data);
+                    /* $('#transactions').append(`<p>${data}</p>`);
+                     data.forEach(showTransactions); */
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                }
+            });
+        });
+
+        function showTransactions(transactionJsonData) {
+            console.log(transactionJsonData);
+            $('#transactions').append(`<tr>
+            <td>${transactionJsonData['id']}</td>
+            <td>${transactionJsonData['name']}</td>
+            <td>${transactionJsonData['balance']}$</td>
+            <td>${transactionJsonData['accountNumber']}</td>
+            <td>${transactionJsonData['createdAt']}</td>
+            </tr>`);
+        }
+    });  
+</script>

@@ -44,6 +44,12 @@ export class AppController {
   }
 
 
+  @Get('transactions')
+  @Render('pages/transactions')
+  transactions() {
+    return { title: 'Transactions' };
+  }
+
   ///http://localhost:3000/transaction
   @Get('transaction')
   async index(): Promise<ITransaction[]> {

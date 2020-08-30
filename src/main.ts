@@ -4,6 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join, resolve } from 'path';
 import * as hbs from 'hbs';
 import { ValidationPipe } from '@nestjs/common';
+import * as bodyParser from 'body-parser';
 
 
 
@@ -21,6 +22,9 @@ async function bootstrap() {
 
   //Validation
   app.useGlobalPipes(new ValidationPipe());
+
+  app.use(bodyParser.json());
+
 
   //view
   app.useStaticAssets(resolve('./src/public'));

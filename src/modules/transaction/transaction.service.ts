@@ -6,12 +6,20 @@ export class TransactionService {
     date = Date.now();
 
     private readonly transactions: ITransaction[] = [
-        // {
-        //     id: this.date,
-        //     balance: 1000,
-        //     accountNumber: this.date,
-        //     name: `Test payment ${this.date}`
-        // }
+        {
+            id: this.date,
+            balance: 1000,
+            accountNumber: this.date,
+            name: `Test payment ${this.date}`,
+            createdAt: '20.12.2020'
+        },
+        {
+            id: this.date,
+            balance: 1500,
+            accountNumber: 23482349878937498374,
+            name: `Test2 payment ${this.date}`,
+            createdAt: '20.12.2020'
+        },
     ];
 
     get() {
