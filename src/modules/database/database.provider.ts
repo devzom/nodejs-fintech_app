@@ -1,7 +1,7 @@
-import { Accounts } from './../accounts/accounts.entity';
 import { Sequelize } from 'sequelize-typescript';
+import { Accounts } from './../accounts/accounts.entity';
 import { Users } from './../user/user.entity';
-
+import { Transactions } from '../transaction/transactions.entity';
 export const databaseProvider = [
   {
     provide: 'SEQUELIZE',
@@ -14,7 +14,7 @@ export const databaseProvider = [
         password: process.env.DB_PASS,
         database: process.env.DB_NAME,
       });
-      sequelize.addModels([Users, Accounts]);
+      sequelize.addModels([Users, Accounts, Transactions]);
       return sequelize;
     },
   },
