@@ -23,8 +23,7 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
 
         $.ajax({
@@ -57,8 +56,8 @@
                 success: function (data, html, textStatus, xhr) {
 
                     console.log(data);
-                    /* $('#transactions').append(`<p>${data}</p>`);
-                     data.forEach(showTransactions); */
+                    $('#transactions').append(`<p>${data}</p>`);
+                     data.forEach(showTransactions);
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log('Error in Operation');
@@ -76,5 +75,5 @@
             <td>${transactionJsonData['createdAt']}</td>
             </tr>`);
         }
-    });  
+    });
 </script>
