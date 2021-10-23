@@ -7,8 +7,8 @@ import {
   UpdatedAt,
   ForeignKey,
   BelongsTo,
+  TableOptions,
 } from 'sequelize-typescript';
-import { TableOptions } from 'sequelize-typescript';
 import { Users } from '../user/user.entity';
 
 const tableOptions: TableOptions = {

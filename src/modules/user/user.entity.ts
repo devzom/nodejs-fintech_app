@@ -6,8 +6,8 @@ import {
   UpdatedAt,
   HasMany,
   Model,
+  TableOptions,
 } from 'sequelize-typescript';
-import { TableOptions } from 'sequelize-typescript';
 import { Accounts } from '../accounts/accounts.entity';
 
 const tableOptions: TableOptions = {
