@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Res,
   Param,
+  Delete,
 } from '@nestjs/common';
 
 @Controller('transaction')
@@ -35,6 +36,24 @@ export class TransactionController {
         HttpStatus.BAD_REQUEST,
       );
     }
+    return res.status(HttpStatus.OK).json(result);
+  }
+
+  @Patch('cancel/:id')
+  /**
+   * cancel pending / scheduled transaction,
+   * providing ID of the transaction
+   */
+  public cancel(@Param() params, @Res() res, @Body() body): Promise<any> {
+    const result: any = `Cancel pending transaction with ID: ${params.id}`;
+
+    if (!params.id) {
+      throw new HttpException(
+        'Missing an ID for the transaction that had to be canceled',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     return res.status(HttpStatus.OK).json(result);
   }
 }
