@@ -14,7 +14,7 @@ import { IUser } from './interfaces/user.interface';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService) {}
 
   //Create register function for API
   @Post('register')
@@ -40,7 +40,7 @@ export class UsersController {
 
   //Create auth endpoint
   //API endpoint:
-  // http://localhost:3000/users/[id]
+  // /users/[id]
   // Header: {Key: Authorization, Value: token}
   @Post(':id')
   public async authenticate(
@@ -57,7 +57,7 @@ export class UsersController {
     return res.status(HttpStatus.OK).json(result);
   }
 
-  //use: http://localhost:3000/users/[id]/balance
+  //use: /users/[id]/balance
   @Get(':id/balance')
   public async getUserAccountsBalance(
     @Param() params,
@@ -68,6 +68,18 @@ export class UsersController {
     if (!result.success) {
       throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
     }
+    return res.status(HttpStatus.OK).json(result);
+  }
+
+  //use: /users/[id]/cards
+  @Get(':id/cards')
+  public async getUserCards(@Param() params, @Res() res): Promise<array> {
+    const result: array = await this.usersService.userCards(params.id);
+
+    if (!result.success) {
+      throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
+    }
+
     return res.status(HttpStatus.OK).json(result);
   }
 }

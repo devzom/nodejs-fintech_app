@@ -6,7 +6,7 @@ export class AccountsService {
   constructor(
     @Inject('ACCOUNTS_REPOSITORY')
     private accountsRepository: typeof Accounts,
-  ) { }
+  ) {}
 
   public async create(UserId: number): Promise<object> {
     const account = {
@@ -29,22 +29,24 @@ export class AccountsService {
 
   public async update(body?: any): Promise<any> {
     let response;
-    const currency = "$";
+    const currency = '$';
     const value = Number(body['Balance']);
     const id = Number(body['AccountId']);
 
     if (!value || !id) {
       response = {
         message: 'Wrong data.',
-        success: false
-      }
+        success: false,
+      };
     } else {
       //? using ternary operator to simply elseif
       response = {
         accountId: id,
-        message: `Balance updated. ${value > 0 ? "Deposited:" : "Withdrawed:"} ${value} ${currency}`,
+        message: `Balance updated. ${
+          value > 0 ? 'Deposited:' : 'Withdrawed:'
+        } ${value} ${currency}`,
         success: true,
-      }
+      };
     }
     return response;
   }
@@ -71,5 +73,19 @@ export class AccountsService {
     });
 
     return accountsBalance ? accountsBalance : [];
+  }
+
+  /**
+   * getCardsByUserId
+   */
+  public getCardsByUserId(UserId?: number): Promise<array> {
+    const accountsCards = await Accounts.findAndCountAll<Accounts>({
+      where: { UserId },
+      attributes: {
+        include: ['id'],
+      },
+    });
+
+    return accountsCards || [];
   }
 }

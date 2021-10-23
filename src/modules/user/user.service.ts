@@ -11,7 +11,7 @@ export class UsersService {
   constructor(
     @Inject('USERS_REPOSITORY') private usersRepository: typeof Users,
     private accountsService: AccountsService,
-  ) { }
+  ) {}
 
   public async create(user: any): Promise<object> {
     const exists = await Users.findOne({ where: { Email: user.Email } });
@@ -67,13 +67,14 @@ export class UsersService {
   // Create login function
   public async login(credentials: any): Promise<any> {
     if (!credentials.Username) {
-      console.log(`Username is not valid. Check credentials: ${credentials.Username}`);
+      console.log(
+        `Username is not valid. Check credentials: ${credentials.Username}`,
+      );
 
       return {
         success: false,
         message: `Username is not valid. Check credentials: Username: ${credentials.Username}`,
       };
-
     }
 
     const user = await Users.findOne<Users>({
@@ -83,13 +84,14 @@ export class UsersService {
 
     // Handle user not found error
     if (!user) {
-      console.log(`User doesn\t exist. Check credentials./ Credentials: ${credentials.Username} `);
+      console.log(
+        `User doesn\t exist. Check credentials./ Credentials: ${credentials.Username} `,
+      );
 
       return {
         success: false,
         message: 'User doesn\t exist. Check credentials.',
       };
-
     }
 
     // Handle password check from DB and password input
@@ -186,7 +188,9 @@ export class UsersService {
     let response;
 
     if (user) {
-      const accounts = await this.accountsService.getAccountsBalanceByUserId(user.id);
+      const accounts = await this.accountsService.getAccountsBalanceByUserId(
+        user.id,
+      );
       response = {
         user: {
           username: user.Username.trim(),
@@ -200,6 +204,36 @@ export class UsersService {
         success: false,
       };
     }
+    return response;
+  }
+
+  /*
+   * Get user cards
+   */
+  public userCards(id: number): Promise<array> {
+    const user = await Users.findOne<Users>({
+      where: { id },
+      attributes: { include: ['UserId'] },
+    });
+
+    let response;
+
+    if (user) {
+      const cards = await this.accountsService.getCardsByUserId(user.id);
+
+      response = {
+        cards: {
+          cards,
+        },
+        success: true,
+      };
+    } else {
+      response = {
+        message: 'Cannot find any cards connected with this user.',
+        success: false,
+      };
+    }
+
     return response;
   }
 }
