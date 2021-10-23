@@ -1,43 +1,50 @@
 import { Injectable } from '@nestjs/common';
-import { ITransaction } from './interface/transaction.interface'
+import { ITransaction } from './interface/transaction.interface';
 
 @Injectable()
 export class TransactionService {
-    date = Date.now();
+  date = Date.now();
 
-    private readonly transactions: ITransaction[] = [
-        {
-            id: this.date,
-            balance: 1000,
-            accountNumber: this.date,
-            name: `Test payment ${this.date}`,
-            createdAt: '20.12.2020'
-        },
-        {
-            id: this.date,
-            balance: 1500,
-            accountNumber: 23482349878937498374,
-            name: `Test2 payment ${this.date}`,
-            createdAt: '20.12.2020'
-        },
-    ];
+  setsetRandomAccountNumber = () => {
+    const number = Math.max(999999999999999) * Math.random();
+    return number.toFixed(0);
+  };
 
-    get() {
-        return this.transactions;
-    }
+  setTransactionDate = () => new Date().getDate();
 
-    find(id: number): ITransaction {
-        const transaction: ITransaction = this.transactions[id];
-        if (!transaction) throw new Error("Transaction not found.");
+  private readonly transactions: ITransaction[] = [
+    {
+      id: this.date,
+      balance: 1000,
+      accountNumber: setRandomAccountNumber(),
+      name: `Test payment ${this.date}`,
+      createdAt: setTransactionDate(),
+    },
+    {
+      id: this.date,
+      balance: 1500,
+      accountNumber: setRandomAccountNumber(),
+      name: `Test2 payment ${this.date}`,
+      createdAt: setTransactionDate(),
+    },
+  ];
 
-        return transaction;
-    }
+  get() {
+    return this.transactions;
+  }
 
-    create(itransaction: ITransaction) {
-        const id = Date.now();
-        const data = this.transactions[id] = { ...itransaction, id };
+  find(id: number): ITransaction {
+    const transaction: ITransaction = this.transactions[id];
+    if (!transaction) throw new Error('Transaction not found.');
 
-        this.transactions.push(data);
-        return itransaction;
-    }
+    return transaction;
+  }
+
+  create(itransaction: ITransaction) {
+    const id = Date.now();
+    const data = (this.transactions[id] = { ...itransaction, id });
+
+    this.transactions.push(data);
+    return itransaction;
+  }
 }
