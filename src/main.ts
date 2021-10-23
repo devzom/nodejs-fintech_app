@@ -6,10 +6,6 @@ import * as hbs from 'hbs';
 import { ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
 
-
-
-
-
 //in purpose to read root .env file
 require('dotenv').config();
 //declaration for adding any module by const
@@ -17,14 +13,13 @@ declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    // logger: ['error', 'debug'],
+    logger: ['error', 'debug'],
   });
 
   //Validation
   app.useGlobalPipes(new ValidationPipe());
 
   app.use(bodyParser.json());
-
 
   //view
   app.useStaticAssets(resolve('./src/public'));
