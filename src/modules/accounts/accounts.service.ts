@@ -78,9 +78,9 @@ export class AccountsService {
   /**
    * getCardsByUserId
    */
-  public getCardsByUserId(UserId?: number): Promise<array> {
+  public async getCardsByUserId(UserId?: number): Promise<{ rows: Accounts[]; count: number } | any[]> {
     const accountsCards = await Accounts.findAndCountAll<Accounts>({
-      where: { UserId },
+      where: {UserId},
       attributes: {
         include: ['id'],
       },
