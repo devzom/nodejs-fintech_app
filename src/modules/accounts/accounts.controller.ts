@@ -1,13 +1,5 @@
-import { AccountsService } from './accounts.service';
-import {
-  Controller,
-  Post,
-  Body,
-  HttpException,
-  HttpStatus,
-  Put,
-  Delete, Param, Get
-} from '@nestjs/common';
+import {AccountsService} from './accounts.service';
+import {Body, Controller, Delete, HttpException, HttpStatus, Param, Post, Put} from '@nestjs/common';
 
 @Controller('accounts')
 export class AccountsController {
@@ -24,8 +16,7 @@ export class AccountsController {
 
   @Delete('delete/:id')
   public async delete(@Param('id') id: number): Promise<any> {
-    const result: any = await this.accountsService.delete(id);
-    return result;
+    return await this.accountsService.delete(id);
   }
 
   @Put('update')
